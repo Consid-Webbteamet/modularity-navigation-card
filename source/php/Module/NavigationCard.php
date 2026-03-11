@@ -26,7 +26,7 @@ class NavigationCard extends \Modularity\Module
     public function data(): array
     {
         $fields = $this->getFields();
-        $cards = $this->normalizeCards((array) ($fields['cards'] ?? []));
+        $cards = $this->normalizeCards($this->extractCardRows($fields));
         $columnCount = $this->normalizeColumnCount($fields['column_count'] ?? 3);
 
         return [
@@ -42,7 +42,53 @@ class NavigationCard extends \Modularity\Module
     }
 
     /**
-     * @param array<int, mixed> $cards
+     * @param array<string, mixed> $viewData
+     * @param array<string, mixed> $blockData
+     * @return array<string, mixed>
+     */
+    public function hydrateViewDataFromRawBlockData(array $viewData, array $blockData): array
+    {
+        $cards = $this->normalizeCards($this->extractCardRows($blockData));
+        $columnCount = $this->normalizeColumnCount($blockData['column_count'] ?? $viewData['columnCount'] ?? 3);
+
+        $viewData['cards'] = $cards;
+        $viewData['columnCount'] = $columnCount;
+        $viewData['gridClass'] = sprintf('navigation-card-grid--columns-%d', $columnCount);
+
+        return $viewData;
+    }
+
+    /**
+     * @param array<string, mixed> $fields
+     * @return array<int, array{parent_page:mixed}>
+     */
+    private function extractCardRows(array $fields): array
+    {
+        $cards = $fields['cards'] ?? [];
+
+        if (is_array($cards)) {
+            return array_values(array_filter($cards, 'is_array'));
+        }
+
+        $cardCount = absint($cards);
+
+        if ($cardCount < 1) {
+            return [];
+        }
+
+        $rows = [];
+
+        for ($index = 0; $index < $cardCount; $index++) {
+            $rows[] = [
+                'parent_page' => $fields[sprintf('cards_%d_parent_page', $index)] ?? null,
+            ];
+        }
+
+        return $rows;
+    }
+
+    /**
+     * @param array<int, array{parent_page:mixed}> $cards
      * @return array<int, array{
      *     parent:array{url:string,title:string},
      *     visibleChildren:array<int, array{url:string,title:string}>,
@@ -50,7 +96,9 @@ class NavigationCard extends \Modularity\Module
      *     totalChildren:int,
      *     hasOverflow:bool,
      *     toggleLabel:string,
-     *     toggleId:string
+     *     toggleId:string,
+     *     toggleButtonId:string,
+     *     headingId:string
      * }>
      */
     private function normalizeCards(array $cards): array
@@ -80,6 +128,8 @@ class NavigationCard extends \Modularity\Module
             $visibleChildren = array_slice($normalizedChildren, 0, 3);
             $hiddenChildren = array_slice($normalizedChildren, 3);
             $totalChildren = count($normalizedChildren);
+            $toggleId = !empty($hiddenChildren) ? wp_unique_id('navigation-card-children-') : '';
+            $headingId = wp_unique_id('navigation-card-heading-');
 
             $normalizedCards[] = [
                 'parent' => $parent,
@@ -91,7 +141,9 @@ class NavigationCard extends \Modularity\Module
                     __('Visa alla (%d)', 'modularity-navigation-card'),
                     $totalChildren,
                 ),
-                'toggleId' => !empty($hiddenChildren) ? wp_unique_id('navigation-card-children-') : '',
+                'toggleId' => $toggleId,
+                'toggleButtonId' => $toggleId !== '' ? $toggleId . '-button' : '',
+                'headingId' => $headingId,
             ];
         }
 
