@@ -36,6 +36,7 @@
                             id="{{ $card['toggleButtonId'] }}"
                             class="navigation-card__toggle"
                             type="button"
+                            aria-label="{{ $card['toggleAccessibleLabel'] }}"
                             aria-expanded="false"
                             aria-controls="{{ $card['toggleId'] }}"
                             data-js-navigation-card-toggle
@@ -52,13 +53,13 @@
                             id="{{ $card['toggleId'] }}"
                             class="navigation-card__hidden"
                             role="region"
-                            aria-labelledby="{{ $card['toggleButtonId'] }}"
+                            aria-label="{{ $card['toggleAccessibleLabel'] }}"
                             data-js-navigation-card-panel
                             hidden
                         >
                             <ul
                                 class="navigation-card__list navigation-card__list--hidden"
-                                aria-labelledby="{{ $card['toggleButtonId'] }}"
+                                aria-label="{{ $card['toggleAccessibleLabel'] }}"
                             >
                                 @foreach ($card['hiddenChildren'] as $child)
                                     <li class="navigation-card__item">
