@@ -8,7 +8,7 @@
         "label": "Instruktion",
         "name": "",
         "type": "message",
-        "message": "Välj antal kolumner för modulen och lägg sedan till en eller flera navigationspuffar. Varje puff hämtar den valda parentsidan och dess direkta undersidor automatiskt.",
+        "message": "Välj antal kolumner för modulen och lägg sedan till en eller flera navigationspuffar. Varje puff hämtar den valda huvudsidan och dess direkta undersidor automatiskt.",
         "new_lines": "wpautop",
         "esc_html": 0
       },
@@ -43,7 +43,7 @@
         "name": "cards",
         "type": "repeater",
         "required": 1,
-        "instructions": "Lägg till en eller flera puffar. Varje rad hämtar innehåll från vald parentsida.",
+        "instructions": "Lägg till en eller flera puffar. Varje rad hämtar innehåll från vald huvudsida.",
         "layout": "row",
         "button_label": "Lägg till puff",
         "min": 1,
@@ -51,11 +51,11 @@
         "sub_fields": [
           {
             "key": "field_navigation_card_card_parent_page",
-            "label": "Parentsida",
+            "label": "Huvudsida",
             "name": "parent_page",
             "type": "page_link",
             "required": 1,
-            "instructions": "Välj den sida som ska visas överst i navigationskortet.",
+            "instructions": "Välj den sida som puffen ska utgå från. Kortet visar sidans undersidor automatiskt.",
             "post_type": [
               "page"
             ],

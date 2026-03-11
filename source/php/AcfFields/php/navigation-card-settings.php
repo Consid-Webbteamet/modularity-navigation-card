@@ -15,7 +15,7 @@ acf_add_local_field_group([
             'label' => __('Instruktion', 'modularity-navigation-card'),
             'name' => '',
             'type' => 'message',
-            'message' => __('Välj antal kolumner för modulen och lägg sedan till en eller flera navigationspuffar. Varje puff hämtar den valda parentsidan och dess direkta undersidor automatiskt.', 'modularity-navigation-card'),
+            'message' => __('Välj antal kolumner för modulen och lägg sedan till en eller flera navigationspuffar. Varje puff hämtar den valda huvudsidan och dess direkta undersidor automatiskt.', 'modularity-navigation-card'),
             'new_lines' => 'wpautop',
             'esc_html' => 0,
         ],
@@ -50,7 +50,7 @@ acf_add_local_field_group([
             'name' => 'cards',
             'type' => 'repeater',
             'required' => 1,
-            'instructions' => __('Lägg till en eller flera puffar. Varje rad hämtar innehåll från vald parentsida.', 'modularity-navigation-card'),
+            'instructions' => __('Lägg till en eller flera puffar. Varje rad hämtar innehåll från vald huvudsida.', 'modularity-navigation-card'),
             'layout' => 'row',
             'button_label' => __('Lägg till puff', 'modularity-navigation-card'),
             'min' => 1,
@@ -58,11 +58,11 @@ acf_add_local_field_group([
             'sub_fields' => [
                 [
                     'key' => 'field_navigation_card_card_parent_page',
-                    'label' => __('Parentsida', 'modularity-navigation-card'),
+                    'label' => __('Huvudsida', 'modularity-navigation-card'),
                     'name' => 'parent_page',
                     'type' => 'page_link',
                     'required' => 1,
-                    'instructions' => __('Välj den sida som ska visas överst i navigationskortet.', 'modularity-navigation-card'),
+                    'instructions' => __('Välj den sida som puffen ska utgå från. Kortet visar sidans undersidor automatiskt.', 'modularity-navigation-card'),
                     'post_type' => [
                         'page',
                     ],
