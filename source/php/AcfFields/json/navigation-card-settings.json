@@ -1,0 +1,110 @@
+[
+  {
+    "key": "group_modularity_navigation_card_settings",
+    "title": "Navigationspuff",
+    "fields": [
+      {
+        "key": "field_navigation_card_editor_info",
+        "label": "Instruktion",
+        "name": "",
+        "type": "message",
+        "message": "Välj antal kolumner för modulen och lägg sedan till en eller flera navigationspuffar. Varje puff hämtar den valda parentsidan och dess direkta undersidor automatiskt.",
+        "new_lines": "wpautop",
+        "esc_html": 0
+      },
+      {
+        "key": "field_navigation_card_column_count",
+        "label": "Antal kolumner",
+        "name": "column_count",
+        "type": "select",
+        "required": 1,
+        "instructions": "Välj hur många kolumner som ska visas från desktop och uppåt.",
+        "choices": {
+          "1": "1 kolumn",
+          "2": "2 kolumner",
+          "3": "3 kolumner"
+        },
+        "default_value": "3",
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 1,
+        "ajax": 0,
+        "placeholder": "",
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_navigation_card_cards",
+        "label": "Navigationspuffar",
+        "name": "cards",
+        "type": "repeater",
+        "required": 1,
+        "instructions": "Lägg till en eller flera puffar. Varje rad hämtar innehåll från vald parentsida.",
+        "layout": "row",
+        "button_label": "Lägg till puff",
+        "min": 1,
+        "collapsed": "field_navigation_card_card_parent_page",
+        "sub_fields": [
+          {
+            "key": "field_navigation_card_card_parent_page",
+            "label": "Parentsida",
+            "name": "parent_page",
+            "type": "page_link",
+            "required": 1,
+            "instructions": "Välj den sida som ska visas överst i navigationskortet.",
+            "post_type": [
+              "page"
+            ],
+            "post_status": [
+              "publish"
+            ],
+            "taxonomy": "",
+            "allow_archives": 0,
+            "multiple": 0,
+            "allow_null": 0,
+            "return_format": "id",
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            }
+          }
+        ],
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "mod-navigation-card"
+        }
+      ],
+      [
+        {
+          "param": "block",
+          "operator": "==",
+          "value": "acf/navigation-card"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+  }
+]
