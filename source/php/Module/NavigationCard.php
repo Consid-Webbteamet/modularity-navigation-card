@@ -96,7 +96,9 @@ class NavigationCard extends \Modularity\Module
      *     totalChildren:int,
      *     hasOverflow:bool,
      *     toggleLabel:string,
+     *     toggleExpandedLabel:string,
      *     toggleAccessibleLabel:string,
+     *     toggleExpandedAccessibleLabel:string,
      *     toggleId:string,
      *     toggleButtonId:string,
      *     headingId:string
@@ -142,10 +144,15 @@ class NavigationCard extends \Modularity\Module
                     __('Visa alla (%d)', 'modularity-navigation-card'),
                     $totalChildren,
                 ),
+                'toggleExpandedLabel' => __('Dölj', 'modularity-navigation-card'),
                 'toggleAccessibleLabel' => sprintf(
                     __('Visa alla undersidor för %1$s (%2$d)', 'modularity-navigation-card'),
                     $parent['title'],
                     $totalChildren,
+                ),
+                'toggleExpandedAccessibleLabel' => sprintf(
+                    __('Dölj undersidor för %s', 'modularity-navigation-card'),
+                    $parent['title'],
                 ),
                 'toggleId' => $toggleId,
                 'toggleButtonId' => $toggleId !== '' ? $toggleId . '-button' : '',

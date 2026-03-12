@@ -28,30 +28,11 @@
                             @endforeach
                         </ul>
                     @endif
-                </div>
 
-                @if ($card['hasOverflow'] && !empty($card['toggleId']))
-                    <div class="navigation-card__overflow">
-                        <button
-                            id="{{ $card['toggleButtonId'] }}"
-                            class="navigation-card__toggle"
-                            type="button"
-                            aria-label="{{ $card['toggleAccessibleLabel'] }}"
-                            aria-expanded="false"
-                            aria-controls="{{ $card['toggleId'] }}"
-                            data-js-navigation-card-toggle
-                        >
-                            <span class="navigation-card__toggle-label">{{ $card['toggleLabel'] }}</span>
-                            <span
-                                class="c-icon material-symbols navigation-card__toggle-icon"
-                                data-material-symbol="keyboard_arrow_down"
-                                aria-hidden="true"
-                            ></span>
-                        </button>
-
+                    @if ($card['hasOverflow'] && !empty($card['toggleId']))
                         <div
                             id="{{ $card['toggleId'] }}"
-                            class="navigation-card__hidden"
+                            class="navigation-card__hidden navigation-card__hidden--inline"
                             role="region"
                             aria-label="{{ $card['toggleAccessibleLabel'] }}"
                             data-js-navigation-card-panel
@@ -75,6 +56,31 @@
                                 @endforeach
                             </ul>
                         </div>
+                    @endif
+                </div>
+
+                @if ($card['hasOverflow'] && !empty($card['toggleId']))
+                    <div class="navigation-card__overflow">
+                        <button
+                            id="{{ $card['toggleButtonId'] }}"
+                            class="navigation-card__toggle"
+                            type="button"
+                            aria-label="{{ $card['toggleAccessibleLabel'] }}"
+                            aria-expanded="false"
+                            aria-controls="{{ $card['toggleId'] }}"
+                            data-navigation-card-collapsed-label="{{ $card['toggleLabel'] }}"
+                            data-navigation-card-expanded-label="{{ $card['toggleExpandedLabel'] }}"
+                            data-navigation-card-collapsed-aria-label="{{ $card['toggleAccessibleLabel'] }}"
+                            data-navigation-card-expanded-aria-label="{{ $card['toggleExpandedAccessibleLabel'] }}"
+                            data-js-navigation-card-toggle
+                        >
+                            <span class="navigation-card__toggle-label">{{ $card['toggleLabel'] }}</span>
+                            <span
+                                class="c-icon material-symbols navigation-card__toggle-icon"
+                                data-material-symbol="keyboard_arrow_down"
+                                aria-hidden="true"
+                            ></span>
+                        </button>
                     </div>
                 @endif
             </div>
