@@ -47,7 +47,8 @@ Field group:
 
 - PHP 8+ is required.
 - The plugin is intended to be installed as a standalone Composer-managed WordPress plugin.
-- View overrides and project-specific UI behavior can be handled outside this repository when a project needs local customization without changing the shared module.
+- Project-specific frontend behavior and styling should live outside this repository when a project needs local customization without changing the shared module.
+- In `municipio-deployment`, navigation card CSS and JS are owned by `packages/lidingo-customisation/`.
 
 ## Typical change flow
 
