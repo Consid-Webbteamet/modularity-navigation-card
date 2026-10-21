@@ -49,7 +49,9 @@ class NavigationCard extends \Modularity\Module
     public function hydrateViewDataFromRawBlockData(array $viewData, array $blockData): array
     {
         $cards = $this->normalizeCards($this->extractCardRows($blockData));
-        $columnCount = $this->normalizeColumnCount($blockData['column_count'] ?? $viewData['columnCount'] ?? 3);
+        $columnCount = $this->normalizeColumnCount(
+            $blockData['column_count'] ?? $blockData['field_navigation_card_column_count'] ?? $viewData['columnCount'] ?? 3,
+        );
 
         $viewData['cards'] = $cards;
         $viewData['columnCount'] = $columnCount;
@@ -64,7 +66,7 @@ class NavigationCard extends \Modularity\Module
      */
     private function extractCardRows(array $fields): array
     {
-        $cards = $fields['cards'] ?? [];
+        $cards = $fields['cards'] ?? $fields['field_navigation_card_cards'] ?? [];
 
         if (is_array($cards)) {
             return array_values(array_filter($cards, 'is_array'));
@@ -111,7 +113,7 @@ class NavigationCard extends \Modularity\Module
                 continue;
             }
 
-            $parentId = absint($card['parent_page'] ?? 0);
+            $parentId = absint($card['parent_page'] ?? $card['field_navigation_card_card_parent_page'] ?? 0);
             $parentPost = $parentId > 0 ? get_post($parentId) : null;
 
             if (!$parentPost instanceof WP_Post || $parentPost->post_type !== 'page' || $parentPost->post_status !== 'publish') {
